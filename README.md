@@ -9,7 +9,7 @@ You will need to control a domain name in order to add CNAME records to your dom
 
 Assuming
 
-- your GitHug username is `<handle>`
+- your GitHub username is `<handle>`
 - your Bundle ID is `com.example.app`
 - your Team ID is `UVWXYZ1234`
 - your FQDN is `rp.example.com`
