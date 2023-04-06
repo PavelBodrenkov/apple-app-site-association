@@ -34,9 +34,7 @@ Your AASA file should be available on the URL
     
     https://rp.example.com/.well-known/apple-app-site-association
     
-Use a test site to check the result. For instance:
-
-    [https://branch.io/resources/aasa-validator/](https://branch.io/resources/aasa-validator/)
+Use a test site to check the result. For instance [https://branch.io/resources/aasa-validator/](https://branch.io/resources/aasa-validator/)
 
 Note that DNS records are cached (also negative results!), so you may need to wait for DNS changes to propagate.
 
