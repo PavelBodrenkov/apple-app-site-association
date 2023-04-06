@@ -5,7 +5,7 @@ This is simply a repository to host AASA files. See [Apple's documentation](http
 
 ## Set up
 
-You will need to control a domain name, i.e. to add CNAME records to your domain's DNS zone.
+You will need to control a domain name in order to add CNAME records to your domain's DNS zone.
 
 Assuming
 
@@ -16,23 +16,17 @@ Assuming
 
 perform the following steps:
 
-- Clone this repository
+1. Make a clone of [this repo](https://github.com/joostd/apple-app-site-association) on GitHub.
 
-Make a clone of this [repo](https://github.com/joostd/apple-app-site-association) on GitHub.
+2. Edit the [CNAME](CNAME) file to point to your FQDN (e.g. `rp.example.com`).
 
-- Edit the CNAME file to your FQDN (e.g. rp.example.com).
+3. Visit your Domain Registrar and add a `CNAME` record for your FQDN, for instance `example.com CNAME <handle>.github.io`
 
-- Visit your Domain Registrar and add a `CNAME` record for your FQDN, for instance `example.com CNAME <handle>.github.io`
+4. Enable _Pages_ in your repository's Settings (select the _main_ branch and the _root_ folder), See `https://github.com/<handle>/apple-app-site-association/settings/pages`
 
-- Enable Pages in your repository's Settings (select the main branch and the root folder)
-
-    https://github.com/<handle>/apple-app-site-association/settings/pages
-
-Wait for a while until GitHub generates a certificate for your Pages site.
+5. Wait for a while until GitHub generates a certificate for your Pages site.
     
-- Save your AppID in the AASA file, i.e. `apple-app-site-association` in the `.well-known` directory
-
-`{"webcredentials":{"apps":["UVWXYZ1234.com.example.app"]}}`
+6. Save your AppID in the AASA file, i.e. `apple-app-site-association` in the `.well-known` directory. For instance `{"webcredentials":{"apps":["UVWXYZ1234.com.example.app"]}}`
     
 ## Test
 
