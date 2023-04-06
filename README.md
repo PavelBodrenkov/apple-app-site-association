@@ -10,40 +10,45 @@ You will need to control a domain name, i.e. to add CNAME records to your domain
 Assuming
 
 - your GitHug username is `<handle>`
-- your Bundle ID is com.example.app
-- your Team ID is UVWXYZ1234
-- your FQDN is rp.example.com
+- your Bundle ID is `com.example.app`
+- your Team ID is `UVWXYZ1234`
+- your FQDN is `rp.example.com`
 
 perform the following steps:
 
 - Clone this repository
 
-    git clone git@github.com:joostd/apple-app-site-association.git
+Make a clone of this [repo](https://github.com/joostd/apple-app-site-association) on GitHub.
 
-- Save your FQDN in the CNAME file
+- Edit the CNAME file to your FQDN (e.g. rp.example.com).
 
-    echo rp.example.com > CNAME
+- Visit your Domain Registrar and add a `CNAME` record for your FQDN, for instance `example.com CNAME <handle>.github.io`
 
-- Enable Pages in your repository's Settings (select the root folder)
+- Enable Pages in your repository's Settings (select the main branch and the root folder)
 
     https://github.com/<handle>/apple-app-site-association/settings/pages
 
-- Add a CNAME record for your FQDN
+Wait for a while until GitHub generates a certificate for your Pages site.
+    
+- Save your AppID in the AASA file, i.e. `apple-app-site-association` in the `.well-known` directory
 
-    example.com CNAME <handle>.github.io
-
-- Save your AppID in the AASA file
-
-    echo '{"webcredentials":{"apps":["UVWXYZ1234.com.example.app"]}}' > .well-known/apple-app-site-association
-
+`{"webcredentials":{"apps":["UVWXYZ1234.com.example.app"]}}`
+    
 ## Test
 
+Your AASA file should be available on the URL
+    
+    https://rp.example.com/.well-known/apple-app-site-association
+    
 Use a test site to check the result. For instance:
 
     [https://branch.io/resources/aasa-validator/](https://branch.io/resources/aasa-validator/)
 
 Note that DNS records are cached (also negative results!), so you may need to wait for DNS changes to propagate.
 
-    $ dig rp.example.com cname +short
-    <handle>.github.io
-
+Use a DNS debug site or on MacOS/Linux, open a terminal and check with:
+    
+```bash
+$ dig rp.example.com cname +short
+<handle>.github.io
+```
