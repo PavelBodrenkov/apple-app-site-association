@@ -22,7 +22,7 @@ perform the following steps:
 
 3. Visit your Domain Registrar and add a `CNAME` record with a short TTL for your FQDN, for instance `example.com 300 IN CNAME <handle>.github.io`
 
-4. Enable _Pages_ in your repository's Settings (select the _main_ branch and the _root_ folder), See `https://github.com/<handle>/apple-app-site-association/settings/pages`
+4. Enable _Pages_ in your repository's Settings (select the _main_ branch and the _root_ folder), and tick _Enforce HTTPS_. See `https://github.com/<handle>/apple-app-site-association/settings/pages`.
 
 5. Wait for a while until GitHub generates a certificate for your Pages site.
     
