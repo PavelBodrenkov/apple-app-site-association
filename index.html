@@ -20,7 +20,8 @@ const RS256 = -257; // RSA w/ SHA-256
 
 const algo = { name: "ECDSA", namedCurve: "P-256", hash: { name: "SHA-256" } };
 
-var userID = new Uint8Array(16);
+var userID = new Uint8Array(8);
+self.crypto.getRandomValues(userID); // generate a random user ID
 
 var challenge = new Uint8Array(32);
 
@@ -32,7 +33,7 @@ var createCredentialDefaultArgs = {
         user: {
             id: userID.buffer,
             name: "deleteMe",
-             displayName: "noUV User"
+             displayName: "Just Delete"
         },
         pubKeyCredParams: [
             { type: "public-key", alg: ES256 },
@@ -56,13 +57,9 @@ var getCredentialDefaultArgs = {
 
 function create() {
     self.crypto.getRandomValues(challenge); // generate a random challenge
-    self.crypto.getRandomValues(userID); // generate a random user ID
     navigator.credentials.create(createCredentialDefaultArgs).then( (cred) => {
-        authenticatorData = cred.response.getAuthenticatorData(); // does CBOR decoding for us
-        credLen = authenticatorData.slice(53,55); // 2 bytes
-        len = new DataView(credLen).getInt16(0, false) // big endian
-        credentialId = authenticatorData.slice(55,55+len); // len bytes
         createCredentialDefaultArgs.publicKey.excludeCredentials = [ {id: cred.rawId, type: "public-key"} ]; // prevent registration of a second credential
+        document.getElementById("message").innerHTML += `<br/>Registered a credential for user <code>${ btoh(userID) }</code> with credential ID <code>${ cred.id }</code>`;
     }).catch((e) => {
         document.getElementById("message").innerHTML += `<br/><b>Registration failed</b>: ${ e.message }`;
     })
@@ -72,7 +69,7 @@ function get() {
     self.crypto.getRandomValues(challenge);
     navigator.credentials.get(getCredentialDefaultArgs).then( (assertion) => {
         handle = new Uint8Array(assertion.response.userHandle);
-        document.getElementById("message").innerHTML += `<br/>Obtained an assertion for credential ID ${ btoh(handle) }`;
+        document.getElementById("message").innerHTML += `<br/>Obtained an assertion for user <code>${ btoh(handle) }</code> and credential ID <code>${ assertion.id }</code>`;
         // ... verify signature
     }).catch((e) => {
         document.getElementById("message").innerHTML += `<br/><b>Authentication failed</b>: ${ e.message }`;
@@ -92,6 +89,11 @@ function btoh(bytes /* Uint8Array */) {
 </div>
 
 <hr/>
+
+<ul>
+<li>In Chrome, use <b>chrome://settings/passkeys</b> or <b>chrome://settings/securityKeys</b> to delete passkeys.
+<li>In Safari, use <b>Safari</b> → <b>Settings...</b> to delete passkeys in the <b>Passwords</b> tab.
+</ul>
 
 <div id="message" class="info">
 </div>
