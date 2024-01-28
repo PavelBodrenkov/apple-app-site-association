@@ -1,13 +1,1 @@
-{
-  "applinks": {
-    "apps":[],
-      "details": [
-           {
-             "appID": "SNXM9Y67K8.com.mojoeducation.mojo",
-             "paths": [
-                "*", "/"
-             ]
-           }
-       ]
-   }
-}
+
